@@ -93,8 +93,6 @@ async function run() {
     const result = await carts.insertOne(data)
    res.send(result);
   })
-  
-
 
   app.get(`/carts/:id`,async(req,res)=>{
     let id=req.params.id
@@ -104,6 +102,15 @@ async function run() {
    res.send(result);
     
   })
+
+
+  app.delete(`/carts/:id`,async(req,res)=>{
+    let id=req.params.id
+   console.log(id)
+   const query = {_id: new ObjectId(id)}
+      const result = await carts.deleteOne(query)
+     res.send(result);
+    })
 
 
 
