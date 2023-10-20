@@ -36,6 +36,15 @@ async function run() {
     const result = await cars.insertOne(car);
    res.send(result);
   })
+
+  app.get('/cars',async(req,res)=>{
+  
+    const cursor =  cars.find();
+    const result = await cursor.toArray()
+   res.send(result);
+  })
+
+
   app.get(`/cars/:id`,async(req,res)=>{
     let id=req.params.id
     let query={_id:new ObjectId(id)}
@@ -47,7 +56,8 @@ async function run() {
   app.put(`/cars/:id`,async(req,res)=>{
     let id=req.params.id
     let filter={_id:new ObjectId(id)}
-    data=req.body
+    let data=req.body
+    console.log(data)
     const result = await cars.updateOne(filter,{
       $set:{
         Image:data.Image,
@@ -56,7 +66,7 @@ async function run() {
         price:data.price,
         type:data.type,
         Name:data.Name,
-        brand:data.brand
+        brandLower:data.brandLower
       }
     })
    res.send(result);
